@@ -1,11 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatDialogModule} from '@angular/material';
-import { MatIconModule} from '@angular/material/icon';
-import { MatSelectModule} from '@angular/material/select';
+import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatDialogModule, MatNativeDateModule, MatIconModule, MatSelectModule} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { HttpClientModule } from '@angular/common/http';
 
