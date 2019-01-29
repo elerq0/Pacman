@@ -1,0 +1,34 @@
+<h1>
+  <div>
+    <button mat-button class="button" routerLink="/main">Back</button>
+  </div>
+</h1>
+<h2>
+  <div class="signTextW" class="button">
+    CHANGE SETTINGS 
+  </div>
+  <p></p>
+  <mat-form-field class="formfield-form" disableRipple>
+    <mat-select placeholder="Number of lives" [(value)]="livesAmmount">
+      <mat-option *ngFor="let l of lives" [value]="l">{{l}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p></p>
+  <mat-form-field class="formfield-form" disableRipple>
+    <mat-select placeholder="Number of enemies" [(value)]="enemiesAmmount">
+      <mat-option *ngFor="let e of enemies" [value]="e">{{e}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p></p>
+  <mat-form-field class="formfield-form" disableRipple>
+    <mat-select placeholder="Player color" [(value)]="playerColor">
+      <mat-option *ngFor="let c of colors" [value]="c[1]">{{c[0]}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</h2>
+
+<h3>
+    <div>
+    <button mat-button class="button" (click)="setSettings()">Change</button>
+  </div>
+</h3>

@@ -1,0 +1,44 @@
+<p>
+<img src="assets/images/ghosts.jpg" class="center" >
+</p>
+
+<h1>
+  <mat-form-field class="formfield-form">
+    <mat-label>Login</mat-label>
+    <label>
+      <input matInput [(ngModel)]="login">
+    </label>
+  </mat-form-field>
+  <p></p>
+  <mat-form-field class="formfield-form">
+    <mat-label>Password</mat-label>
+    <label>
+      <input matInput [(ngModel)]="password" [type]="hide ? 'password' : 'text'">
+    </label>
+    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </mat-form-field>
+</h1>
+
+<h2>
+  <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://cdnjs.cloudflare.com ">
+  <form [formGroup]="aFormGroup">
+    <ngx-recaptcha2 (success)="setCaptchaToTrue()" (expire)="setCaptchaToFalse()" #captchaElem [siteKey]="siteKey"
+      [useGlobalDomain]="false" [theme]='theme' formControlName="recaptcha">
+    </ngx-recaptcha2>
+  </form>
+</h2>
+
+
+<h3>
+  <div>
+      <button mat-button class="button" (click)="loginToGame()">Next</button>
+      <p></p>
+      <p></p>
+    <button mat-button class="button" (click)="backToStartMenu()" routerLink="">Back</button>
+  </div>
+</h3>
+
+
+  <div class="downleft">
+    <button mat-button class="button" routerLink="/reset">Reset password</button>
+  </div>

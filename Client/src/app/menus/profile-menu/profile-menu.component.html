@@ -1,0 +1,52 @@
+<h1>
+  <div>
+    <button mat-button class="button" routerLink="/main">Back</button>
+  </div>
+</h1>
+
+<h2>
+  <div class="signTextY" style="font-size: 4vw; resize: both">
+    {{name}}
+  </div>
+  <p></p>
+  <p></p>
+  <div class="signTextW">
+      Last Games:
+  </div>
+</h2>
+
+<h3>
+  <div class="signTextW" style="display: inline">
+    RANK: 
+  </div>
+  <div class="signTextY" style="display: inline">
+    {{rank}}
+  </div>
+      <p></p>
+  <div class="signTextW">
+      Total Time:
+  </div>
+  <p></p>
+  <p></p>
+  <div class="signTextY">
+      {{totalTime}} s
+  </div>
+</h3>
+
+<h4>
+  <div class="signTextW">
+    TIME: 
+  </div>
+  <div class="signTextY" *ngFor="let pos of listOfTimes">
+    {{pos}} s
+  </div>
+</h4>
+
+<h5>
+  <div class="signTextW">
+    SCORE: 
+  </div>
+  <div class="signTextY" *ngFor="let pos of listOfScores">
+    {{pos}}
+  </div>
+</h5>

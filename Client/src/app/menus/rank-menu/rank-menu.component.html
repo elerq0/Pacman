@@ -1,0 +1,45 @@
+<h1>
+  <div>
+    <button mat-button class="button" routerLink="/main">Back</button>
+  </div>
+</h1>
+
+<h2>
+  <div class="signTextY">
+    Rank
+    <p></p>
+  </div>
+  <div class="signTextR" *ngFor="let pos of listOfRanks">
+      {{ pos }}
+  </div>
+</h2>
+
+<h3>
+  <div class="signTextY">
+    Name
+    <p></p>
+  </div>
+  <div class="signTextW" *ngFor="let pos of listOfNames">
+      {{ pos }}
+  </div>
+</h3>
+
+<h4>
+  <div class="signTextY">
+    Max Score
+    <p></p>
+  </div>
+  <div class="signTextW" *ngFor="let pos of listOfMaxScores">
+      {{ pos }}
+     </div>
+</h4>
+
+<h5>
+  <div class="signTextY">
+    Total Time
+    <p></p>
+  </div>
+  <div class="signTextW" *ngFor="let pos of listOfTotalTimes">
+      {{ pos }}
+  </div>
+</h5>
