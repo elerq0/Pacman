@@ -39,22 +39,22 @@ export class Input {
       esc = this.keyboard("Escape");
 
     left.press = () => {
-      this.physics.backMove(this.player)
+      this.physics.backMove(this.player, this.game.lastDelta + 1)
       this.player.currentPath = 'left'
     };
 
     up.press = () => {
-      this.physics.backMove(this.player)
+      this.physics.backMove(this.player, this.game.lastDelta + 1)
       this.player.currentPath = 'up'
     };
 
     right.press = () => {
-      this.physics.backMove(this.player)
+      this.physics.backMove(this.player, this.game.lastDelta + 1)
       this.player.currentPath = 'right'
     };
 
     down.press = () => {
-      this.physics.backMove(this.player)
+      this.physics.backMove(this.player, this.game.lastDelta + 1)
       this.player.currentPath = 'down'
     };
 

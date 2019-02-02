@@ -4,13 +4,13 @@ export class Map {
 
     private stage: any;
 
-    public gridY;
-    public gridX;
+    public gridY = 31;
+    public gridX = 28;
 
     public matrix;
     public blockSize
-    public mapHorizontalShift
-    public mapVerticalShift
+    public horizontalShift
+    public verticalShift
 
     public walls;
     public pills;
@@ -18,16 +18,19 @@ export class Map {
 
     public pillColor
 
-    public constructor(stage, blocksize) {
+    public constructor(stage) {
 
-        this.gridY = 31;
-        this.gridX = 28;
+        if (window.innerHeight / (this.gridY + 6) <
+            window.innerWidth / (this.gridX + 2)) {
+            this.blockSize = window.innerHeight / (this.gridY + 6);
+        } else {
+            this.blockSize = window.innerWidth / (this.gridX + 2);
+        }
 
         this.matrix = this.getMatrix()
-        this.blockSize = blocksize
 
-        this.mapVerticalShift = 10;
-        this.mapHorizontalShift = 400;
+        this.verticalShift = this.blockSize * 4;
+        this.horizontalShift = window.innerWidth / 2 - this.blockSize * (this.gridX / 2 + 1);
 
         this.walls = []
         this.pills = []
@@ -46,8 +49,8 @@ export class Map {
                     let block = new PIXI.Graphics();
                     block.lineStyle(1, 0x0000FF, 1);
                     block.drawRect(0, 0, this.blockSize, this.blockSize);
-                    block.x = this.mapHorizontalShift + this.blockSize * j;
-                    block.y = this.mapVerticalShift + this.blockSize * i;
+                    block.x = this.horizontalShift + this.blockSize * j;
+                    block.y = this.verticalShift + this.blockSize * i;
                     stage.addChild(block);
                     this.walls.push(block)
                 } else if (this.matrix[i][j] == 3) {
@@ -56,18 +59,19 @@ export class Map {
                     pill.beginFill(0xFFFFFF);
                     pill.drawEllipse(this.blockSize / 2, this.blockSize / 2, this.blockSize * 0.3, this.blockSize * 0.3);
                     pill.endFill();
-                    pill.x = this.mapHorizontalShift + this.blockSize * j;
-                    pill.y = this.mapVerticalShift + this.blockSize * i;
+                    pill.x = this.horizontalShift + this.blockSize * j;
+                    pill.y = this.verticalShift + this.blockSize * i;
                     stage.addChild(pill);
                     this.pills.push(pill)
                 } else if (this.matrix[i][j] == 0) {
                     let point = new PIXI.Graphics();
                     point.lineStyle(1, 0x000000, 2);
                     point.beginFill(0xFFFFFF);
+                    if (i == 13 ) point.beginFill(0x00FF00);
                     point.drawEllipse(this.blockSize / 2, this.blockSize / 2, this.blockSize * 0.2, this.blockSize * 0.2);
                     point.endFill();
-                    point.x = this.mapHorizontalShift + this.blockSize * j;
-                    point.y = this.mapVerticalShift + this.blockSize * i;
+                    point.x = this.horizontalShift + this.blockSize * j;
+                    point.y = this.verticalShift + this.blockSize * i;
                     // point.width = this.blockSize * 0.2
                     // point.height = this.blockSize * 0.2
                     stage.addChild(point);

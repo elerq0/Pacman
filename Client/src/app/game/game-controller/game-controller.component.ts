@@ -81,13 +81,12 @@ export class GameControllerComponent implements OnInit {
         this.router.navigate(['/main/']);
       },
       () => {
-        this.app = new PIXI.Application({ width: 672, height: 744 });
-        this.app.renderer.resize(window.innerWidth * 0.98, window.innerHeight * 0.98);
+        this.app = new PIXI.Application({width: window.innerWidth * 0.98, height: window.innerHeight * 0.98});
         document.body.appendChild(this.app.view);
 
-        this.map = new Map(this.app.stage, 28);
+        this.map = new Map(this.app.stage);
         this.unit = new Unit(this.app.stage, this.map, this.livesAmmount, this.enemiesAmmount, this.playerColor);
-        this.interface = new Interface(this.app.stage, this.unit)
+        this.interface = new Interface(this.app.stage, this.unit, this.map)
         this.physics = new Physics(this.map, this.unit, this.interface)
         this.game = new Game(this.map, this.unit, this.interface, this.physics, this.app.stage, this.app.ticker, this)
         this.input = new Input(this.unit.player, this.physics, this.app.ticker, this.game)

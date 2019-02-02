@@ -13,6 +13,7 @@ export class Game {
     stage: any;
     ticker: any;
     godModeTime;
+    lastDelta = 1;
 
     constructor(map, unit, interf, physics, stage, ticker, gcc) {
         this.map = map;
@@ -27,7 +28,8 @@ export class Game {
     }
 
     public play(delta) {
-        this.physics.move(this.unit.player)
+        this.lastDelta = delta;
+        this.physics.move(this.unit.player, delta)
         this.interface.updateTime(delta)
         if (this.godModeTime > 0) {
             if (this.godModeTime < 2) {
@@ -58,7 +60,7 @@ export class Game {
         if(this.map.points.length == 0) this.endGame(true)
 
         for (let e of this.unit.enemies) {
-            this.simulationMove(e);
+            this.simulationMove(e, delta);
             if (this.physics.collision(e, this.unit.player))
                 if (this.godModeTime == 0)
                     this.playerDies()
@@ -66,16 +68,15 @@ export class Game {
                     e.x = this.unit.enemyStartingPoint[e.index][0]
                     e.y = this.unit.enemyStartingPoint[e.index][1]
                     e.currentPath = 'none'
-                    //   e.delay = 666;
                     this.interface.updateScore(10)
                 }
             for (let n of this.unit.enemies) {
                 if (this.physics.collision(e, n)) {
-                    this.physics.backMove(e)
-                    this.physics.backMove(e)
+                    this.physics.backMove(e, delta)
+                    this.physics.backMove(e, delta)
                     this.physics.turnBackward(e);
-                    this.physics.backMove(n)
-                    this.physics.backMove(n)
+                    this.physics.backMove(n, delta)
+                    this.physics.backMove(n, delta)
                     this.physics.turnBackward(n);
                 }
             }
@@ -83,7 +84,7 @@ export class Game {
     }
 
 
-    simulationMove(object) {
+    simulationMove(object, dist) {
         let objX = object.x
         let objY = object.y
 
@@ -93,33 +94,21 @@ export class Game {
         }
 
         if (object.currentPath != 'none')
-            this.physics.move(object)
+            this.physics.move(object, dist)
         else {
             object.currentPath = this.getRandomPath(object.currentPath)
         }
 
-        // if (Math.round(object.y - this.map.mapVerticalShift) / this.map.blockSize == Math.round(this.unit.unit.player.y - this.map.mapVerticalShift) / this.map.blockSize) {
-        //   if (object.x <= this.unit.unit.player.x)
-        //     object.currentPath = 'right'
-        //   else if (object.x > this.unit.unit.player.x)
-        //     object.currentPath = 'left'
-        // } else if (Math.round(object.x - this.map.mapHorizontalShift) / this.map.blockSize == Math.round(this.unit.unit.player.x - this.map.mapHorizontalShift) / this.map.blockSize) {
-        //   if (object.y <= this.unit.unit.player.y)
-        //     object.currentPath = 'down'
-        //   else if (object.y > this.unit.unit.player.y)
-        //     object.currentPath = 'up'
-        // }
-
-        if (object.y >= this.map.mapVerticalShift + this.map.blockSize * 13 && object.y < this.map.mapVerticalShift + this.map.blockSize * 17) {
-            if (object.x >= this.map.mapHorizontalShift + this.map.blockSize * 10 && object.x < this.map.mapHorizontalShift + this.map.blockSize * 13)
+        if (object.y >= this.map.verticalShift + this.map.blockSize * 13 && object.y < this.map.verticalShift + this.map.blockSize * 17) {
+            if (object.x >= this.map.horizontalShift + this.map.blockSize * 10 && object.x < this.map.horizontalShift + this.map.blockSize * 13)
                 object.currentPath = 'right'
-            else if (object.x >= this.map.mapHorizontalShift + this.map.blockSize * 13 && object.x < this.map.mapHorizontalShift + this.map.blockSize * 14)
+            else if (object.x >= this.map.horizontalShift + this.map.blockSize * 13 && object.x < this.map.horizontalShift + this.map.blockSize * 14)
                 object.currentPath = 'up'
-            else if (object.x >= this.map.mapHorizontalShift + this.map.blockSize * 14 && object.x < this.map.mapHorizontalShift + this.map.blockSize * 18)
+            else if (object.x >= this.map.horizontalShift + this.map.blockSize * 14 && object.x < this.map.horizontalShift + this.map.blockSize * 18)
                 object.currentPath = 'left'
         }
         if (object.x == objX && object.y == objY) {
-            this.physics.backMove(object)
+            this.physics.backMove(object, dist)
             object.currentPath = this.getRandomPath(object.currentPath)
         }
     }
@@ -136,8 +125,8 @@ export class Game {
     playerDies() {
         if (this.unit.livesAmmount > 1) {
             this.interface.decreaseLives()
-            this.unit.player.x = this.map.mapHorizontalShift + this.map.blockSize * 2 + this.map.blockSize / 10;
-            this.unit.player.y = this.map.mapVerticalShift + this.map.blockSize * 26 + this.map.blockSize / 10;
+            this.unit.player.x = this.map.horizontalShift + this.map.blockSize * 2 + this.map.blockSize / 10;
+            this.unit.player.y = this.map.verticalShift + this.map.blockSize * 26 + this.map.blockSize / 10;
             this.unit.player.currentPath = 'none'
             for (let enemy of this.unit.enemies) {
                 enemy.x = this.unit.enemyStartingPoint[enemy.index][0]

@@ -16,44 +16,44 @@ export class Physics {
     }
 
 
-    move(object) {
+    move(object, dist) {
         switch (object.currentPath) {
             case 'left':
                 if (this.canGoLeft(object))
-                    object.x -= 1
+                    object.x -= dist
                 break;
             case 'up':
                 if (this.canGoUp(object))
-                    object.y -= 1
+                    object.y -= dist
                 break;
             case 'right':
                 if (this.canGoRight(object))
-                    object.x += 1
+                    object.x += dist
                 break;
             case 'down':
                 if (this.canGoDown(object))
-                    object.y += 1
+                    object.y += dist
                 break;
         }
-        if (object.x < this.map.mapHorizontalShift)
-            object.x = this.map.mapHorizontalShift + this.map.blockSize * this.map.gridX;
-        else if (object.x > this.map.mapHorizontalShift + this.map.blockSize * this.map.gridX)
-            object.x = this.map.mapHorizontalShift;
+        if (object.x < this.map.horizontalShift)
+            object.x = this.map.horizontalShift + this.map.blockSize * this.map.gridX;
+        else if (object.x > this.map.horizontalShift + this.map.blockSize * this.map.gridX)
+            object.x = this.map.horizontalShift;
     }
 
-    backMove(object) {
+    backMove(object, dist) {
         switch (object.currentPath) {
             case 'left':
-                object.x += 1
+                object.x += dist
                 break;
             case 'up':
-                object.y += 1
+                object.y += dist
                 break;
             case 'right':
-                object.x -= 1
+                object.x -= dist
                 break;
             case 'down':
-                object.y -= 1
+                object.y -= dist
                 break;
         }
     }
