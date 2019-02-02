@@ -67,13 +67,10 @@ export class Map {
                     let point = new PIXI.Graphics();
                     point.lineStyle(1, 0x000000, 2);
                     point.beginFill(0xFFFFFF);
-                    if (i == 13 ) point.beginFill(0x00FF00);
                     point.drawEllipse(this.blockSize / 2, this.blockSize / 2, this.blockSize * 0.2, this.blockSize * 0.2);
                     point.endFill();
                     point.x = this.horizontalShift + this.blockSize * j;
                     point.y = this.verticalShift + this.blockSize * i;
-                    // point.width = this.blockSize * 0.2
-                    // point.height = this.blockSize * 0.2
                     stage.addChild(point);
                     this.points.push(point)
                 }
